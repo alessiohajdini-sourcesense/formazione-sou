@@ -2,7 +2,6 @@
 
 immagine="ealen/echo-server"
 nome_c="echo"
-pausa=60
 
 macchina="m1"
 
