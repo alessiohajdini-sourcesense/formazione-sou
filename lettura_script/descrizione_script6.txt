@@ -1,0 +1,21 @@
+
+
+
+dichiaro address come un array associativo con l'option -A
+
+
+assegno all'array address con chiave [Charles] il valore = 414 W. 10th Ave., Baltimore, MD 21236
+assegno all'array address con chiave [Jhon] il valore = 202 E. 3rd St., New York, NY 10009
+assegno all'array address con chiave [Wilma] il valore = 1854 Vermont Ave, Los Angeles, CA 90023
+
+
+stampa su terminale: Charles's address is 414 W. 10th Ave., Baltimore, MD 21236.
+stampa su terminale: Wilma's address is 1854 Vermont Ave, Los Angeles, CA 90023.
+stampa su terminale: John's address is 202 E. 3rd St., New York, NY 10009.
+
+
+
+
+stmapa riga vuota
+
+stampa su terminale le chiavi dell'array address: Charles Jhon Wilma

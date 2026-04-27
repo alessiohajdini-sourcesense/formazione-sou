@@ -1,0 +1,36 @@
+
+
+
+stampa riga vuota
+
+
+
+
+
+assegna alla varibile a il valore 879
+stampa su terminale The value of "a" is 879
+
+
+usa let per assegnare alla varibile la somma dei valori 16 e 5
+stampa su terminale The value of "a" is now 21.
+
+stampa riga vuota
+
+
+stampa su terminale: Values of "a" in the loop are:, senza andare a capo perchè echo ha l'option -n
+ciclo for con iterazione della variabile a in valori specifici, dove a assume i seguenti valori in sequenza: 7 8 9 11
+inizio ciclo
+stampa senza andare a capo su terminale: 7 poi 8 poi 9 poi 11
+fine ciclo
+
+stampa riga vuota
+stampa riga vuota
+
+
+stampa senza andare a capo: Enter "a"
+aspetta che l'utente inserisca il valore da assegnare ad a
+stampa su terminale: The value of "a" is now $a.
+
+stampa riga vuota
+
+esce dallo script con exit code 0 

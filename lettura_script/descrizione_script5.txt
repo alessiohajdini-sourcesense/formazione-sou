@@ -1,0 +1,11 @@
+
+
+stampa su terminale: hello
+stampa su terminale: 0, perchè la variabile $? memorizza lo stato di esecuzione del comando precendente, che essendo andato a buon fine è 0
+
+comando non eseistente
+stampa su terminale: valore non 0, perche il comando precedente non è andato a buon fine o c'è stato un errore
+
+stampa riga vuota
+
+esce dallo script con valore 113
