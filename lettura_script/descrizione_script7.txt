@@ -1,0 +1,32 @@
+
+
+
+
+
+
+
+assegna alla variabile interval il valore 1
+assegna alla variabile long_interval il valore 10
+
+inizia un blocco di comandi in background siccome alla chiusura del blocco c'è &
+esegue il comando exit solo se riceve il segnale da SIGUSR1
+aspetta 1 secondo; aspetta 1 secondo
+inizio cilco infinito
+
+stmapa senza andare a capo: .
+aspetta 1 secondo
+chiusura del ciclo 
+
+assegna alla varibile pid il valore del pid dell'ultimo processo in questo caso il processo in background
+esegue i seguenti comandi se c'è un segnale di uscita tipo ctrl+c: stampa !; manda il segnale SIGUSR1 al pid del processo in background terminandolo; aspetta che termini il processo in backgroud
+
+stampa senza andare a capo: Long-running process
+aspetta il contenuto della variabile long_interval (10 secondi)
+stampa su terminale: Finished!
+
+manda il segnale SIGUSR1 al pid del processo in background terminandolo
+aspetta che termini il processo in backgroud
+se non attivato, rimuove il trap impostato nella riga 21 per evitare che all'exit dello script vengano eseguiti di nuovo i comandi
+
+esce dallo script con exit code dell'ultimo comando che se tutto è andato a buon fine dovrebbe essere 0
+ 

@@ -1,0 +1,7 @@
+# Cleanup
+# Run as root, of course.
+
+si sposta nella directory /var/log
+azzera il contenuto di messages
+azzera il contenuto di wtmp
+stampa su terminale "Log files cleaned up."

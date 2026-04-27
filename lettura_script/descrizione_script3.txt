@@ -1,0 +1,50 @@
+
+
+
+
+assegna alla varibile MINPARAMS 10
+
+stampa una riga vuota
+
+stampa su terminale The name of this script is \"$0\"., la vairabile $0 serve per stampare il nome dello script in esecuzione, includendo la directory di dove si trova lo script
+
+
+stampa su terminale The name of this script is \"`basename $0`\"., il comando basename serve per estrapolare solamente il nome del file in esecuzione in questo caso dato la varibile $0, non includendo il percorso
+
+stampa una riga vuota
+
+apre condizione e verifica se il primo parametro passato al lancio dello script non è vuoto
+se vero 
+stampa Parameter #1 is $1, dove $1 rappresenta il primo parametro passato al lancio dello script
+chiusura condizione
+
+apre condizione e verifica se il secondo parametro passato al lancio dello script non è vuoto
+se vero 
+stampa Parameter #2 is $2, dove $2 rappresenta il secondo parametro passato al lancio dello script
+chiusura condizione
+
+apre condizione e verifica se il terzo parametro passato al lancio dello script non è vuoto
+se vero 
+stampa Parameter #3 is $3, dove $3 rappresenta il terzo parametro passato al lancio dello script
+chiusura condizione
+
+e cosi via 
+
+
+apre condizione e verifica se il decimo parametro passato al lancio dello script non è vuoto
+se vero 
+stampa Parameter #1 is ${10}" dove ${10} rappresenta il decimo parametro passato al lancio dello script, con i parametri maggiori di 9 bisogna usare le parentesi graffe
+chiusura condizione
+
+stampa su terminale -----------------------------------
+stampa su terminale All the command-line parameters are: "$*", dove $* rappresenta tutti i parametri in un'unica stringa
+
+apre condizione verificando se $# (numero totale dei parametri) è minore della variabile $MINPARAMS 
+se vero 
+stampa riga vuota
+stampa su terminale This script needs at least $MINPARAMS command-line arguments!, dove $MINPARAMS è uguale a 10
+chiusura condizione
+
+stampa riga vuota
+
+esce dallo script con exit 0, quindi con esito positivo

@@ -1,0 +1,28 @@
+
+
+
+assegna 0 alla variabile ROOT_UID
+
+apre un if con la condizione che verifica lo user id con la nostra variabile
+se vero
+stampa su terminale "You are root."
+altrimenti
+stampa su termianle echo "You are just an ordinary user (but mom loves you just the same)."
+chiusura condizione
+
+smette di eseguire lo script perchè l'exit code 0 significa che lo script ha avuto successo
+
+
+
+
+
+
+assegna root alla variabile ROOTUSER_NAME
+
+assegna alla varibile username il risultato del comando id -nu che sarebbe l'equivalente di whoami
+apre un if con la condizione di verifica se la variabile username è uguale alla varibile ROOTUSER_NAME
+se vero 
+stampa su terminale "Rooty, toot, toot. You are root."
+altrimenti
+stampa su terminale "You are just a regular fella."
+chiusura condizione
