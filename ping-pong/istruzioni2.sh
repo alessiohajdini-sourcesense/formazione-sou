@@ -13,7 +13,7 @@ echo "avvio l'immagine sulla macchina "$macchina
 vagrant ssh $macchina -c "docker run -d --name $nome_c -p 80:80 $immagine"
 
 while true; do 
-    sleep $pausa 
+    sleep 60
   
     if [ "$macchina" == m1 ]; then
         sorgente="m1"
