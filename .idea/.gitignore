@@ -1,6 +1,11 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# Rider ignored files
+/.idea.formazione-sou.iml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Ignored default folder with query files
