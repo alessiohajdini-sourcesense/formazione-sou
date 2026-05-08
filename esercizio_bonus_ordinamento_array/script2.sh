@@ -5,17 +5,18 @@ declare -a array    # Dichiara un array chiamato "array"
 # Ciclo infinito: continua a chiedere stringhe finché l'utente inserisce una riga vuota
 while true; do
   echo "inserisci stringa: "
-  read stringa
+  read -r stringa
 
   [[ -z "$stringa" ]] && break    # Se la stringa è vuota, interrompe il ciclo while
-  array+=("$stringa")
+  array+=( $stringa )
 done
+
 
 # Ordina alfabeticamente gli elementi dell'array
 # printf stampa ogni elemento su una riga diversa
 # sort ordina le righe
 # Il risultato viene salvato nel nuovo array "array_o"
-array_o=($(printf "%s\n" "${array[@]}" | sort | tr [:lower:] [:upper:]))   # trasformo le lettere minuscole in maiuscole
+array_o=($(printf "%s\n" "${array[@]}" | tr [:lower:] [:upper:] | sort ))   # trasformo le lettere minuscole in maiuscole
 
 # Ciclo sugli indici dell'array ordinato
 for i in "${!array_o[@]}"; do
