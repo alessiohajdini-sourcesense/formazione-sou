@@ -2,7 +2,6 @@
 
 Repository dedicata al percorso di Academy DevOps con Sourcesense.
 
-Raccoglie tutto il materiale prodotto durante il corso: esercizi, script, appunti e risorse di studio.
 
 ## Contenuto
 
