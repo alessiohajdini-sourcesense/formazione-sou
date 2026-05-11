@@ -52,7 +52,9 @@ bash istruzioni2.sh
 Lo script:
 1. Scarica l'immagine `ealen/echo-server` su entrambe le VM
 2. Avvia il container su `m1`
-3. Ogni 60 secondi, ferma il container sul nodo attivo e lo riavvia sull'altro
+3. Mostra una barra di caricamento carattere per carattere per 60 secondi
+4. Ferma il container sul nodo attivo e lo riavvia sull'altro
+5. Se lo stop del container fallisce, lo script si interrompe
 
 ---
 
