@@ -1,25 +1,19 @@
 - name: aggiornamento sistema
   hosts: all
   become: true
-  
   tasks:
-    - name: installazione pacchetti
-      ansible.builtin.apt:
-        name:
-          - git
-          - curl
-          - vim
-        state: present
-        update_cache: yes
-
-    - name: creazione directory
-      ansible.builtin.file:
-        path: /opt/myapp
-        state: directory
-        mode: '0755'
-    
-    - name: creazione utente
-      ansible.builtin.user:
-        name: devops
-        state: present
-        shell: /bin/bash
+  - name: creazione gruppo Parigi
+    group:
+      name: Parigi
+      state: present
+      gid: 1500
+  - name: creazione gruppo Tokyo
+    group:
+      name: Tokyo
+      state: present
+      gid: 1501
+  - name: creazione gruppo NewYork
+    group:
+      name: NewYork
+      state: present
+      gid: 1502
