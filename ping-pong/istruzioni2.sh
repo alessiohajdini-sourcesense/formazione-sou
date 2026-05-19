@@ -1,8 +1,7 @@
 #!/bin/bash
 
 barra_caricamento (){
-  
-  for (( i = 0; i < 60; i++ )); do
+  for (( i = 0; i < 55; i++ )); do
     echo -n "█"
     sleep 1
   done
@@ -12,18 +11,24 @@ barra_caricamento (){
 immagine="ealen/echo-server"
 nome_c="echo"
 
-macchina="m1"
-
-clear
-echo "scarico immagine su entrambe le macchine"
+{
 vagrant ssh m1 -c "docker pull "$immagine > /dev/null 2>&1
+r1=$?
 vagrant ssh m2 -c "docker pull "$immagine > /dev/null 2>&1
-clear
+r2=$?
+} &
 
-echo "avvio l'immagine sulla macchina "$macchina
+until [[ $macchina == "m1" || $macchina == "m2" ]]; do
+  echo "digita m1 o m2 per scegliere da che macchina iniziare"
+  read macchina
+  clear 
+done
+     
+
+echo "avvio container sulla macchina "$macchina
 vagrant ssh $macchina -c "docker run -d --name $nome_c $immagine" > /dev/null 2>&1
 
-while true; do 
+while [[ r1 -eq 0 && r2 -eq 0 ]]; do 
   barra_caricamento
   
     if [ "$macchina" == m1 ]; then
@@ -37,14 +42,15 @@ while true; do
     echo "migrazione da $sorgente a $destinazione"  
     vagrant ssh $sorgente -c "docker stop $nome_c &&  docker rm $nome_c" > /dev/null 2>&1
     if [ $? -ne 0  ]; then
-        break
+      echo "!!! Qualcosa è andato storto !!!"
+      break
     fi
     clear    
         
-    echo "avvio l'immagine su $destinazione"  
+    echo "avvio il container su $destinazione"  
     vagrant ssh $destinazione -c "docker run -d --name $nome_c $immagine" > /dev/null 2>&1
     clear
-    echo "immagine $nome_c in esecuzione su $destinazione"  
+    echo "container $nome_c in esecuzione su $destinazione"  
     macchina=$destinazione
     
 done

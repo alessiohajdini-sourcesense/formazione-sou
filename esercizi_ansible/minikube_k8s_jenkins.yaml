@@ -1,0 +1,36 @@
+- name: aggiornamento sistema
+  hosts: all
+  become: true
+  tasks:
+  - name: creazione gruppi
+    group: 
+      name: "{{ item }}"
+      state: present
+    loop: 
+      - Parigi
+      - Tokyo
+      - NewYork
+  - name: modifica uid utente
+    user:
+      name: supervisor
+      uid: 10000
+      state: present
+      shell: /bin/bash
+      group: Parigi
+  - name: installazione tree
+    apt:
+      name: tree
+      state: present
+      update_cache: yes
+  - name: creazione file
+    copy:
+      dest: /home/prova.txt
+      content: ""
+      mode: '0644'
+  - name: aggiornamento sistema
+    package:
+      state: latest
+      name: "*"
+  - name: reboot del sistema
+    reboot:
+      msg: "Reboooooooot"

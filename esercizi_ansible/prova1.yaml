@@ -1,0 +1,25 @@
+- name: aggiornamento sistema
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: installazione pacchetti
+      ansible.builtin.apt:
+        name:
+          - git
+          - curl
+          - vim
+        state: present
+        update_cache: yes
+
+    - name: creazione directory
+      ansible.builtin.file:
+        path: /opt/myapp
+        state: directory
+        mode: '0755'
+    
+    - name: creazione utente
+      ansible.builtin.user:
+        name: devops
+        state: present
+        shell: /bin/bash
