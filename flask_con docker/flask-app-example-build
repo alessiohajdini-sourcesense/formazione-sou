@@ -1,0 +1,34 @@
+pipeline {
+	agent any
+	environment {
+		nome = 'flask'
+		immagine = 'flask'
+	}
+
+	stages {
+		stage ("clone repository da git"){
+			steps {
+				sh "docker pull ${immagine}"
+			}
+		}
+		stage ("pull e run immagine"){
+			steps {
+				sh "docker pull ${immagine}"
+				sh "docker run -d -p 5000:80 --name ${nome} ${immagine}"
+			}
+		}
+		stage ("stato container"){
+			steps {
+				sh "docker inspect ${nome}"
+			}
+
+		}
+	}
+	post {
+		always {
+			sh "docker stop ${nome}"
+			sh "docker rm -f ${nome}"
+		}
+
+	}
+}
