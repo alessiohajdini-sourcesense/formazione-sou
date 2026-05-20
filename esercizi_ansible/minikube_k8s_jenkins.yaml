@@ -28,6 +28,20 @@
       state: directory
       mode: 0755
       recurse: yes
+
+  - name: permessi socket docker
+    file:
+      path: /var/run/docker.sock
+      owner: 1000
+      group: 1000
+      mode: 0777
+
+  - name: permessi socket docker2
+    file:
+      path: /usr/bin/docker
+      owner: 1000
+      group: 1000
+      mode: 0777
       
   - name: installazione dipendenza python
     pip:
@@ -76,6 +90,8 @@
         - 50000:50000
       volumes:
         - /var/jenkins_home:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /usr/bin/docker:/usr/bin/docker
         
   - name: check jenkins
     uri:
@@ -90,7 +106,7 @@
     community.general.jenkins_script:
       url: http://192.168.3.104:8080
       user: admin
-      password: "{{password}}"
+      password: admin
       script: |
         import jenkins.model.*
         import hudson.slaves.*
@@ -114,7 +130,7 @@
     community.general.jenkins_script:
       url: http://192.168.3.104:8080
       user: admin
-      password: "{{password}}"
+      password: admin
       script: |
         println jenkins.model.Jenkins.instance
         .getComputer("agent1")
