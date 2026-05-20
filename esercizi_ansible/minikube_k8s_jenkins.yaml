@@ -1,4 +1,4 @@
-- name: installazione Minikube K8s e jenkins e docker
+- name: installazione Minikube,K8s,jenkins,jenkins_agent e docker
   hosts: all
   become: true
   tasks:
@@ -10,6 +10,24 @@
         - python3-pip
       state: present
       update_cache: yes
+      
+  - name: permessi jenkins
+    file:
+      path: /var/jenkins_home
+      owner: 1000
+      group: 1000
+      mode: 0755
+      recurse: yes
+      state: directory
+    
+  - name: directory agent
+    file:
+      path: /home/jenkins/agent
+      owner: 1000
+      group: 1000
+      state: directory
+      mode: 0755
+      recurse: yes
       
   - name: installazione dipendenza python
     pip:
@@ -57,6 +75,67 @@
         - 8080:8080
         - 50000:50000
       volumes:
-        - jenkins_home:/var/jenkins_home
+        - /var/jenkins_home:/var/jenkins_home
+        
+  - name: check jenkins
+    uri:
+      url: http://192.168.3.104:8080/login
+      status_code: 200
+    register: status
+    until: status.status == 200
+    retries: 5
+    delay: 3
     
-    
+  - name: setup agent
+    community.general.jenkins_script:
+      url: http://192.168.3.104:8080
+      user: admin
+      password: "{{password}}"
+      script: |
+        import jenkins.model.*
+        import hudson.slaves.*
+
+        def jenkins = Jenkins.instance
+
+        if (!jenkins.getNode("agent1")) {
+          def launcher = new JNLPLauncher(true)
+          def agent = new DumbSlave(
+            "agent1",
+            "/home/jenkins/agent",
+            launcher
+          )
+          agent.numExecutors = 2
+          agent.labelString = "linux"
+          jenkins.addNode(agent)
+          jenkins.save()
+        }
+        
+  - name: recupero secret dell'agent
+    community.general.jenkins_script:
+      url: http://192.168.3.104:8080
+      user: admin
+      password: "{{password}}"
+      script: |
+        println jenkins.model.Jenkins.instance
+        .getComputer("agent1")
+        .getJnlpMac()
+    register: secret
+      
+  - name: estrazione secret
+    set_fact:
+      agent_secret: "{{ secret.output | regex_replace('Result: ', '') | trim }}"
+  
+  - name: setup agent jenkins
+    community.docker.docker_container:
+      name: agent1
+      image: jenkins/inbound-agent:latest
+      state: started
+      restart_policy: always
+      env:
+        JENKINS_SECRET: "{{ agent_secret }}"
+        JENKINS_AGENT_NAME: agent1
+        JENKINS_URL: http://172.10.0.10:8080
+        JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+      networks:
+        - name: jenkins_rete
+          ipv4_address: 172.10.0.11
