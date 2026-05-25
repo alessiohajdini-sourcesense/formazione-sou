@@ -27,7 +27,7 @@ chmod +x monitor.sh
 ```
 
 Lo script:
-1. Avvia 9 container Alpine (`c1`–`c9`) in background
+1. Controlla se esistono già container `c1`–`c9`; se sì li rimuove, poi avvia 9 container Alpine freschi in background
 2. Alterna i turni tra il giocatore **X** e il giocatore **O**
 3. Controlla vittoria e pareggio dopo ogni mossa
 4. Al termine chiede se giocare di nuovo; in caso contrario rimuove tutti i container
@@ -43,7 +43,7 @@ Diagonali: `1-5-9`, `3-5-7`
 
 | Funzione | Descrizione |
 |---|---|
-| `inizializzazione_griglia` | Avvia i 9 container, azzera la griglia; ritorna 1 in caso di errore |
+| `inizializzazione_griglia` | Se esistono container `c1`–`c9` li rimuove prima di avviare, poi avvia i 9 container e azzera la griglia; ritorna 1 in caso di errore |
 | `stampa_griglia` | Pulisce lo schermo e mostra la griglia (celle libere mostrano il numero 1-9) |
 | `check_mossa_valida` | Verifica che la posizione sia nel range 1-9 e che la cella sia libera |
 | `esegui_mossa` | Valida la mossa, aggiorna la griglia e crea il file `/$giocatore` nel container |
