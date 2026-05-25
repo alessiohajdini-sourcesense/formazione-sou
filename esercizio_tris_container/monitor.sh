@@ -1,14 +1,14 @@
 #!/bin/bash
 
 azzeramento_container(){
-
+  clear
+  echo "SPEGNIMENTO CONTAINER"
   for i in {1..9}; do
     docker rm -f "c${i}" > /dev/null 2>&1
     echo -n "█"
   done
   echo " 9/9"
 }
-
 
 win_combo=(
     "1 2 3"
@@ -26,13 +26,18 @@ griglia=( "" "" "" "" "" "" "" "" "" "")
 
 inizializzazione_griglia(){
 
+  if docker ps -a --format "{{.Names}}" | grep -qE "^c[1-9]$"; then
+    azzeramento_container
+  fi
+
   echo "AVVIO CONTAINER"
   for i in {1..9}; do
     griglia[$i]=""
     docker run -d --name "c${i}" alpine sleep infinity > /dev/null 2>&1
-    if [ $? -ne 0 ]; then
+    if [ $? -eq 1 ]; then
       return 1
     fi
+
     echo -n "█"
   done
   echo " 9/9"
@@ -159,10 +164,8 @@ while true; do
     turno_giocatore $giocatore_corrente && break
   done
 
-
   read -rp "Vuoi giocare ancora? (s/n): " scelta
   if [[ "$scelta" != "s" ]] ; then
-    echo "SPEGNIMENTO CONTAINER"
     azzeramento_container && break
   fi
 
