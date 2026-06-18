@@ -1,3 +1,4 @@
+import java.util.Date
 pipeline {
 	agent any
 	stages {
@@ -8,13 +9,15 @@ pipeline {
 			}
 		}
 
-		stage (check giorno della settimana){
+		stage ("check giorno della settimana"){
 		    steps {
-			    data = new date()
-			    sh "echo $data"
-			    if (data.getDay() == 6 || data.getDay() ==7) {
-			    	error "Non puoi eseguire la pipeline durante il weekend"
+		        script {
+			        def data = new Date()
+			        sh "echo $data"
+			        if (data.getDay() == 0 || data.getDay() == 6) {
+			    	    error "Non puoi eseguire la pipeline durante il weekend"
 			    }
+			}
 		   }
 
 		}
