@@ -74,7 +74,7 @@
           gateway: 172.10.0.1
       state: present
       
-  - name: jenkins docker
+  - name: jenkins master
     community.docker.docker_container:
       name: jenkins
       image: jenkins/jenkins:lts
@@ -82,6 +82,11 @@
       recreate: yes
       force_kill: yes
       restart_policy: always
+      groups:
+        - "119"
+      dns_servers:
+        - 8.8.8.8
+        - 1.1.1.1
       networks:
         - name: jenkins_rete
           ipv4_address: 172.10.0.10
@@ -95,7 +100,7 @@
         
   - name: check jenkins
     uri:
-      url: http://192.168.3.104:8080/login
+      url: http://192.168.56.104:8080/login
       status_code: 200
     register: status
     until: status.status == 200
@@ -104,7 +109,7 @@
     
   - name: setup agent
     community.general.jenkins_script:
-      url: http://192.168.3.104:8080
+      url: http://192.168.56.104:8080
       user: admin
       password: admin
       script: |
@@ -128,7 +133,7 @@
         
   - name: recupero secret dell'agent
     community.general.jenkins_script:
-      url: http://192.168.3.104:8080
+      url: http://192.168.56.104:8080
       user: admin
       password: admin
       script: |
@@ -147,6 +152,9 @@
       image: jenkins/inbound-agent:latest
       state: started
       restart_policy: always
+      dns_servers:
+        - 8.8.8.8
+        - 1.1.1.1
       env:
         JENKINS_SECRET: "{{ agent_secret }}"
         JENKINS_AGENT_NAME: agent1

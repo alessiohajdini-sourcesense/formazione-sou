@@ -1,0 +1,52 @@
+pipeline {
+	agent any
+	stages {
+		stage ("esecuzione controlli"){
+			steps {
+				sh "ls -la"
+				sh "find . -name Dockerfile"
+			}
+		}
+
+		stage (check giorno della settimana){
+		    steps {
+			    data = new date()
+			    sh "echo $data"
+			    if (data.getDay() == 6 || data.getDay() ==7) {
+			    	error "Non puoi eseguire la pipeline durante il weekend"
+			    }
+		   }
+
+		}
+
+		stage ("determina tag git"){
+			steps {
+				script {
+					def branch = env.GIT_branch.replaceFirst(/^origin\//,"")
+					def tag = env.GIT_COMMIT.take(7)
+
+					if (branch == "main") {
+						env.TAG = "latest"
+					} else if (branch == "develop") {
+						env.TAG = "develop-${tag}"
+					}
+					}
+				}
+		}
+
+		stage ("push su dockerhub"){
+			steps {
+			withCredentials([usernamePassword(
+                credentialsId: 'dockerhub_credentials_id',
+            	usernameVariable:'USERNAME_DOCKERHUB',
+            	passwordVariable:'PASSWORD_DOCKERHUB'
+            	)]){
+			    sh 'echo -n "$PASSWORD_DOCKERHUB" | docker login -u "$USERNAME_DOCKERHUB" --password-stdin'
+				sh 'docker build -t "$USERNAME_DOCKERHUB/formazione_sou_k8s:$TAG" flask_con_docker'
+				sh 'docker push "$USERNAME_DOCKERHUB/formazione_sou_k8s:$TAG"'
+				sh 'docker logout'
+			}
+		}
+	}
+}
+}
