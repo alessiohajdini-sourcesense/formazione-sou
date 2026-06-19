@@ -1,0 +1,60 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for role/jenkins_agent
+
+- name: setup agent
+  community.general.jenkins_script:
+    url: "http://{{ jenkins_master_ip }}:8080"
+    user: admin
+    password: admin
+    script: |
+      import jenkins.model.*
+      import hudson.slaves.*
+      
+      def jenkins = Jenkins.instance
+      
+      if (!jenkins.getNode("agent1")) {
+        def launcher = new JNLPLauncher(true)
+        def agent = new DumbSlave(
+          "agent1",
+          "/home/jenkins/agent",
+          launcher
+        )
+        agent.numExecutors = 2
+        agent.labelString = "linux"
+        jenkins.addNode(agent)
+        jenkins.save()
+      }
+
+- name: recupero secret dell'agent
+  community.general.jenkins_script:
+    url: "http://{{ jenkins_master_ip }}:8080"
+    user: admin
+    password: admin
+    script: |
+      println jenkins.model.Jenkins.instance
+      .getComputer("agent1")
+      .getJnlpMac()
+  register: secret
+
+- name: estrazione secret
+  set_fact:
+    agent_secret: "{{ secret.output | regex_replace('Result: ', '') | trim }}"
+
+- name: setup agent jenkins
+  community.docker.docker_container:
+    name: {{ agent_name }}
+    image: {{ jenkins_agent_image }}
+    state: started
+    restart_policy: always
+    dns_servers:
+      - 8.8.8.8
+      - 1.1.1.1
+    env:
+      JENKINS_SECRET: "{{ agent_secret }}"
+      JENKINS_AGENT_NAME: "{{ agent_name }}"
+      JENKINS_URL: "http://{{ jenkins_master_docker-ip }}:8080"
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+    networks:
+      - name: {{ jenkins_netwok }}
+        ipv4_address: {{ jenkins_agent_docker-ip }}

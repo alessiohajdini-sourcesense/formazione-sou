@@ -1,0 +1,35 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for role/permessi_cartelle
+
+- name: permessi jenkins
+  file:
+    path: /var/jenkins_home
+    owner: 1000
+    group: 1000
+    mode: 0755
+    recurse: yes
+    state: directory
+
+- name: directory agent
+  file:
+    path: /home/jenkins/agent
+    owner: 1000
+    group: 1000
+    state: directory
+    mode: 0755
+    recurse: yes
+
+- name: permessi socket docker
+  file:
+    path: /var/run/docker.sock
+    owner: 1000
+    group: 1000
+    mode: 0777
+
+- name: permessi socket docker2
+  file:
+    path: /usr/bin/docker
+    owner: 1000
+    group: 1000
+    mode: 0777

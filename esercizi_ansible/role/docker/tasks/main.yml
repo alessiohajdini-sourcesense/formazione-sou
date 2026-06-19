@@ -1,0 +1,25 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for role/docker
+
+- name: installazion docker
+  become: true
+  apt:
+    name:
+      - docker.io
+      - python3-pip
+    state: present
+    update_cache: yes
+
+- name: installazione dipendenza python
+  pip:
+    name: docker
+    state: present
+
+- name: creazione rete docker per jenkins
+  community.docker.docker_network:
+    name: {{ jenkins_network_name }}
+    ipam_config:
+      - subnet: {{ jenkins_network_subnet }}
+        gateway: {{ jenkins_network_gateway }}
+    state: present

@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for role/check_jenkins
+
+- name: check jenkins
+  uri:
+    url: http://{{ jenkins_master_ip }}/login
+    status_code: 200
+  register: status
+  until: status.status == 200
+  retries: 5
+  delay: 3
