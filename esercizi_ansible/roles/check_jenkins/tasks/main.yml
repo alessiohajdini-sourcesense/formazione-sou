@@ -4,7 +4,7 @@
 
 - name: check jenkins
   uri:
-    url: http://{{ jenkins_master_ip }}/login
+    url: "http://{{ hostvars['m2'].ansible_host }}:8080/login"
     status_code: 200
   register: status
   until: status.status == 200

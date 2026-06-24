@@ -3,5 +3,11 @@
   become: true
   tasks:
 
-
-    
+  roles:
+    - docker
+    - permessi_cartelle
+    - minikube
+    - kubectl
+    - jenkins_master
+    - check_jenkins
+    - jenkins_agent

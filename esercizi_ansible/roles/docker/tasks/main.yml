@@ -18,8 +18,8 @@
 
 - name: creazione rete docker per jenkins
   community.docker.docker_network:
-    name: {{ jenkins_network_name }}
+    name: "{{ jenkins_network_name }}"
     ipam_config:
-      - subnet: {{ jenkins_network_subnet }}
-        gateway: {{ jenkins_network_gateway }}
+      - subnet: "{{ jenkins_network_subnet }}"
+        gateway: "{{ jenkins_network_gateway }}"
     state: present

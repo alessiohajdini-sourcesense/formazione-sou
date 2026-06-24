@@ -5,7 +5,7 @@
 - name: jenkins master
   community.docker.docker_container:
     name: jenkins
-    image: {{ jenkins_image }}
+    image: "{{ jenkins_image }}"
     state: started
     restart_policy: always
     groups:
@@ -14,8 +14,8 @@
       - 8.8.8.8
       - 1.1.1.1
     networks:
-      - name: {{ jenkins_network_name }}
-        ipv4_address: {{ jenkins_master_docker-ip }}
+      - name: "{{ jenkins_network_name }}"
+        ipv4_address: "{{ jenkins_master_docker_ip }}"
     ports:
       - 8080:8080
       - 50000:50000

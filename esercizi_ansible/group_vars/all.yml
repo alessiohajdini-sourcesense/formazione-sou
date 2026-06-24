@@ -6,7 +6,5 @@ jenkins_network_name: jenkins_network
 jenkins_network_subnet: 172.10.0.0/16
 jenkins_network_gateway: 172.10.0.1
 
-jenkins_master_docker-ip: 172.10.0.10
-jenkins_agent_docker-ip: 172.10.0.11
-
-jenkins_master_ip: 192.168.56.104
+jenkins_master_docker_ip: 172.10.0.10
+jenkins_agent_docker_ip: 172.10.0.11
