@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/l_d
+
+- name: installazione pacchetti
+  package:
+    name: "{{item.key}}"
+    state: "{{item.value}}"
+  loop: "{{pacchetti | dict2items}}"

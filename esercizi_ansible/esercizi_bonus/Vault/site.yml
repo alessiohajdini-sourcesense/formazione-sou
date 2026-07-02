@@ -1,0 +1,9 @@
+- name: mostra password
+  hosts: m1
+  become: true
+  vars_files:
+    - secret.yml
+  tasks:
+
+  roles:
+    - passwd

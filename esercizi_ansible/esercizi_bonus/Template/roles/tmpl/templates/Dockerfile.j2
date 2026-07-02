@@ -1,0 +1,13 @@
+FROM {{ from_image }}
+
+LABEL authors="{{ author }}"
+
+WORKDIR {{ workdir }}
+
+COPY app.py .
+
+RUN pip install flask
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]

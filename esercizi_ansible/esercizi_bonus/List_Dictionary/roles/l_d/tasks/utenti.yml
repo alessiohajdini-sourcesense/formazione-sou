@@ -1,0 +1,20 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/l_d
+
+- name: creazione gruppi
+  group:
+    name: "{{item.gruppo}}"
+    state: present
+  loop: "{{utenti}}"
+
+- name: creazione utenti
+  user:
+    state: present
+    create_home: yes
+    home: "/home/{{item.nome}}"
+    name: "{{item.nome}}"
+    group: "{{item.gruppo}}"
+    shell: "{{item.shell}}"
+
+  loop: "{{utenti}}"

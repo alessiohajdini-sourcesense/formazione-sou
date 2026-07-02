@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for passwd
+
+- name: mostra password
+
+  debug:
+    msg:
+      - "{{ passwd1 | string }}"
+      - "{{ passwd2 | string }}"
+      - "{{ passwd3 | string }}"
+      - "{{ passwd4 | string }}"

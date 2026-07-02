@@ -1,0 +1,21 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for roles/l_d
+
+pacchetti:
+  vim: present
+  htop: present
+  apache2: present
+  python3: present
+  python3-pip: present
+
+utenti:
+  - nome: pippo
+    gruppo: pippo
+    shell: /bin/bash
+  - nome: pluto
+    gruppo: pluto
+    shell: /bin/bash
+  - nome: paperino
+    gruppo: paperino
+    shell: /bin/bash

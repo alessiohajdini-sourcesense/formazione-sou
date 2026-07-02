@@ -1,0 +1,7 @@
+- name: installazione Minikube,K8s,jenkins,jenkins_agent e docker
+  hosts: m1
+  become: true
+
+  tasks:
+
+  roles:

@@ -1,0 +1,13 @@
+- name: Liste e Dictionary
+  hosts: m2
+  become: true
+  tasks:
+
+    - name: utenti
+      include_role:
+        name: l_d
+        tasks_from: utenti.yml
+    - name: pacchetti
+      include_role:
+        name: l_d
+        tasks_from: pacchetti.yml

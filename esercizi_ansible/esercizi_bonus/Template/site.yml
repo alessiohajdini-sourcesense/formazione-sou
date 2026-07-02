@@ -1,0 +1,7 @@
+- name: templating limit e access
+  become: true
+  hosts: m2
+  tasks:
+
+  roles:
+    - tmpl
