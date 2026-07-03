@@ -1,3 +1,6 @@
-@delivery   soft    nofile          {{ nfile_d }}
-@collaudo   soft    nofile          {{ nfile_cs }}
-@sviluppo   soft    nofile          {{ nfile_cs }}
+{% if ambiente == 'produzione' %}
+root   soft    nofile          10000
+{% endif %}
+{% if ambiente == 'sviluppo' or ambiente == 'collaudo' %}
+root   soft    nofile          1000
+{% endif %}
