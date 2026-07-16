@@ -2,6 +2,14 @@
 ---
 # tasks file for roles/restore
 
+- name: trasferimento backup
+  ansible.builtin.copy:
+    src: "/tmp/{{ db_name }}.sql"
+    dest: "/tmp/{{ db_name }}.sql"
+  when: inventory_hostname == "m2"
+
+
 - name: restore database mariadb
   ansible.builtin.shell:
-    cmd: "mariadb {{ db_name }} < /backup/{{ db_name }}.sql"
+    cmd: "mariadb < /tmp/{{ db_name }}.sql"
+  when: inventory_hostname == "m2"
