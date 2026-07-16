@@ -1,0 +1,7 @@
+- name: backup and restore
+  hosts: all
+  become: true
+
+  roles:
+    - backup
+    - restore

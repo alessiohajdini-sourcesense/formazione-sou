@@ -1,0 +1,3 @@
+db_user: "{{ db_usr }}"
+db_password: "{{ db_passwd }}"
+db_name: academy

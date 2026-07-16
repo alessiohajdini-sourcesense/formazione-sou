@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/restore
+
+- name: restore database mariadb
+  ansible.builtin.shell:
+    cmd: "mariadb {{ db_name }} < /backup/{{ db_name }}.sql"
