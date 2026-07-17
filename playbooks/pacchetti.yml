@@ -1,0 +1,9 @@
+- name: installazione pacchetti
+  hosts: m2
+  become: true
+
+  tasks:
+    - name: pacchetti
+      ansible.builtin.include_role:
+        name: l_d
+        tasks_from: pacchetti.yml

@@ -1,0 +1,6 @@
+- name: deploy jenkins master
+  hosts: m1
+  become: true
+
+  roles:
+    - jenkins_master

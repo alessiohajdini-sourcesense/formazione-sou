@@ -1,0 +1,6 @@
+- name: installazione minikube
+  hosts: m1
+  become: true
+
+  roles:
+    - minikube

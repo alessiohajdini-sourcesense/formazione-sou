@@ -1,0 +1,9 @@
+- name: creazione utenti e gruppi
+  hosts: m2
+  become: true
+
+  tasks:
+    - name: utenti
+      ansible.builtin.include_role:
+        name: l_d
+        tasks_from: utenti.yml

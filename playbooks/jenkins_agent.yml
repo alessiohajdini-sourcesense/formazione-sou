@@ -1,0 +1,6 @@
+- name: deploy jenkins agent
+  hosts: m1
+  become: true
+
+  roles:
+    - jenkins_agent

@@ -1,0 +1,6 @@
+- name: templating limits, access e dockerfile
+  hosts: m2
+  become: true
+
+  roles:
+    - tmpl

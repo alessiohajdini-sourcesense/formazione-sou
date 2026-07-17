@@ -1,0 +1,15 @@
+- name: restore database
+  hosts: all
+  become: true
+
+  tasks:
+    - name: trasferimento backup
+      ansible.builtin.copy:
+        src: "/tmp/{{ db_name }}.sql"
+        dest: "/tmp/{{ db_name }}.sql"
+      when: inventory_hostname == "m2"
+
+    - name: restore database mariadb
+      ansible.builtin.shell:
+        cmd: "mariadb < /tmp/{{ db_name }}.sql"
+      when: inventory_hostname == "m2"

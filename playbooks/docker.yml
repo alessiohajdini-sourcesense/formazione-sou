@@ -1,0 +1,6 @@
+- name: installazione docker e rete jenkins
+  hosts: m1
+  become: true
+
+  roles:
+    - docker

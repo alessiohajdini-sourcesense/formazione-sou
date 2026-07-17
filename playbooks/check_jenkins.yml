@@ -1,0 +1,6 @@
+- name: check jenkins raggiungibile
+  hosts: m1
+  become: true
+
+  roles:
+    - check_jenkins

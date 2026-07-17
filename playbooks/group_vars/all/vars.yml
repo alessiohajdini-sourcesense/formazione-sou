@@ -1,0 +1,16 @@
+# --- jenkins / docker ---
+jenkins_agent_image: jenkins/inbound-agent:latest
+jenkins_image: jenkins/jenkins:lts
+agent_name: agent1
+
+jenkins_network_name: jenkins_network
+jenkins_network_subnet: 172.10.0.0/16
+jenkins_network_gateway: 172.10.0.1
+
+jenkins_master_docker_ip: 172.10.0.10
+jenkins_agent_docker_ip: 172.10.0.11
+
+# --- backup / restore database ---
+db_user: "{{ db_usr }}"
+db_password: "{{ db_passwd }}"
+db_name: academy

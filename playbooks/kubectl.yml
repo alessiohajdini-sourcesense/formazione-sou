@@ -1,0 +1,6 @@
+- name: installazione kubectl
+  hosts: m1
+  become: true
+
+  roles:
+    - kubectl

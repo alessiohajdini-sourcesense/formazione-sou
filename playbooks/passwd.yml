@@ -1,0 +1,8 @@
+- name: mostra password da vault
+  hosts: m1
+  become: true
+  vars_files:
+    - ../esercizi_ansible/esercizi_bonus/Vault/secret.yml
+
+  roles:
+    - passwd

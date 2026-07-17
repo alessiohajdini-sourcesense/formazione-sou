@@ -1,0 +1,6 @@
+- name: permessi cartelle jenkins
+  hosts: m1
+  become: true
+
+  roles:
+    - permessi_cartelle
