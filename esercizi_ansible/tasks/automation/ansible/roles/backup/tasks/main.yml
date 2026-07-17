@@ -5,12 +5,10 @@
 - name: backup database mariadb
   ansible.builtin.shell:
     cmd: "mariadb-dump -u {{ db_user }} -p{{ db_password }} --databases {{ db_name }} > /tmp/{{ db_name }}.sql"
-  no_log: true
   when: inventory_hostname == "m1"
 
 - name: trasferimento backup
-  ansible.builtin.fetch:
-    src: "/tmp/{{ db_name }}.sql"
-    dest: "/tmp/{{ db_name }}.sql"
-    flat: true
+  ansible.builtin.shell:
+    cmd: "scp -P 2224 /tmp/{{ db_name }}.sql vagrant@{{hostvars['m2'].ansible_host}}:/tmp/{{ db_name }}.sql"
   when: inventory_hostname == "m1"
+
