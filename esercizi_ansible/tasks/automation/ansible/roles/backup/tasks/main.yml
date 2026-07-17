@@ -4,7 +4,7 @@
 
 - name: backup database mariadb
   ansible.builtin.shell:
-    cmd: "mariadb-dump -u {{ db_user }} -p{{ db_password }} --databases {{ db_name }} > /tmp/{{ db_name }}.sql"
+    cmd: "mariadb-dump --databases {{ db_name }} > /tmp/{{ db_name }}.sql"
   when: inventory_hostname == "m1"
 
 - name: trasferimento backup
