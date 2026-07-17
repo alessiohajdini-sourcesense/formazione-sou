@@ -9,6 +9,6 @@
 
 - name: trasferimento backup
   ansible.builtin.shell:
-    cmd: "scp -P 2224 /tmp/{{ db_name }}.sql vagrant@{{hostvars['m2'].ansible_host}}:/tmp/{{ db_name }}.sql"
+    cmd: "scp /tmp/{{ db_name }}.sql vagrant@{{hostvars['m2'].ansible_host}}:/tmp/{{ db_name }}.sql"
   when: inventory_hostname == "m1"
 
