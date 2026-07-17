@@ -9,7 +9,6 @@
 
 - name: trasferimento backup
   ansible.builtin.shell:
-    cmd: "scp /tmp/{{ db_name }}.sql vagrant@{{hostvars['m2'].private_ip}}:/tmp/"
+    cmd: "scp /tmp/{{ db_name }}.sql vagrant@{{hostvars['m2'].private_ip}}:/tmp/{{ db_name }}.sql"
   become: false
   when: inventory_hostname == "m1"
-  
