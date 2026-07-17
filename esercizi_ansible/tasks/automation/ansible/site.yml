@@ -1,7 +1,5 @@
 - name: backup and restore
-  hosts: all
-  become: true
+  ansible.builtin.import_playbook: roles/backup/tasks/main.yml
 
-  roles:
-    - backup
-    - restore
+- name: restore
+  ansible.builtin.import_playbook: roles/restore/tasks/main.yml
